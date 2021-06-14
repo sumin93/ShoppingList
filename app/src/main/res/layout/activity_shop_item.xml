@@ -2,7 +2,6 @@
 <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shop_item_container"
-    android:name="com.sumin.shoppinglist.presentation.ShopItemFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.ShopItemActivity"
