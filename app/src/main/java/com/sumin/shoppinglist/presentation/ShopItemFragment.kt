@@ -19,6 +19,8 @@ import com.sumin.shoppinglist.domain.ShopItem
 
 class ShopItemFragment : Fragment() {
 
+    private lateinit var onShopItemEditingFinishedListener: OnShopItemEditingFinishedListener
+
     private lateinit var viewModel: ShopItemViewModel
 
     private lateinit var tilName: TextInputLayout
@@ -33,6 +35,11 @@ class ShopItemFragment : Fragment() {
     override fun onAttach(context: Context) {
         Log.d("ShopItemFragment", "onAttach")
         super.onAttach(context)
+        if (context is OnShopItemEditingFinishedListener) {
+            onShopItemEditingFinishedListener = context
+        } else {
+            throw RuntimeException("Activity must implement OnShopItemEditingFinishedListener")
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +120,7 @@ class ShopItemFragment : Fragment() {
             tilName.error = message
         }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            activity?.onBackPressed()
+            onShopItemEditingFinishedListener.onShopItemEditingFinished()
         }
     }
 
@@ -190,6 +197,11 @@ class ShopItemFragment : Fragment() {
             etCount = findViewById(R.id.et_count)
             buttonSave = findViewById(R.id.save_button)
         }
+    }
+
+    interface OnShopItemEditingFinishedListener {
+
+        fun onShopItemEditingFinished()
     }
 
     companion object {

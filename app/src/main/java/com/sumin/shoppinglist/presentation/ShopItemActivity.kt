@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sumin.shoppinglist.R
 import com.sumin.shoppinglist.domain.ShopItem
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnShopItemEditingFinishedListener {
 
     private var screenMode = MODE_UNKNOWN
     private var shopItemId = ShopItem.UNDEFINED_ID
@@ -45,6 +45,10 @@ class ShopItemActivity : AppCompatActivity() {
             }
             shopItemId = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, ShopItem.UNDEFINED_ID)
         }
+    }
+
+    override fun onShopItemEditingFinished() {
+        finish()
     }
 
     companion object {
