@@ -1,6 +1,7 @@
 package com.sumin.shoppinglist.presentation
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -35,9 +36,9 @@ class ShopItemFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("ShopItemFragment", "onCreate")
         super.onCreate(savedInstanceState)
         parseParams()
-        Log.d("ShopItemFragment", "onCreate")
     }
 
     override fun onCreateView(
@@ -50,12 +51,48 @@ class ShopItemFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("ShopItemFragment", "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
         initViews(view)
         addTextChangeListeners()
         launchRightMode()
         observeViewModel()
+    }
+
+    override fun onStart() {
+        Log.d("ShopItemFragment", "onStart")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        Log.d("ShopItemFragment", "onResume")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Log.d("ShopItemFragment", "onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d("ShopItemFragment", "onStop")
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        Log.d("ShopItemFragment", "onDestroyView")
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        Log.d("ShopItemFragment", "onDestroy")
+        super.onDestroy()
+    }
+
+    override fun onDetach() {
+        Log.d("ShopItemFragment", "onDetach")
+        super.onDetach()
     }
 
     private fun observeViewModel() {
@@ -76,7 +113,7 @@ class ShopItemFragment : Fragment() {
             tilName.error = message
         }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            requireActivity().onBackPressed()
+            activity?.onBackPressed()
         }
     }
 
@@ -153,21 +190,6 @@ class ShopItemFragment : Fragment() {
             etCount = findViewById(R.id.et_count)
             buttonSave = findViewById(R.id.save_button)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("ShopItemFragment", "onDestroyView")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("ShopItemFragment", "onDestroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("ShopItemFragment", "onDetach")
     }
 
     companion object {

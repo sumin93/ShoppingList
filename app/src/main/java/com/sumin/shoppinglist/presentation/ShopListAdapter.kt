@@ -18,18 +18,19 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCa
             else -> throw RuntimeException("Unknown view type: $viewType")
         }
         val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
-        return ShopItemViewHolder(view)
+        val viewHolder = ShopItemViewHolder(view)
+        viewHolder.view.setOnLongClickListener {
+            onShopItemLongClickListener?.invoke(getItem(viewHolder.adapterPosition))
+            true
+        }
+        viewHolder.view.setOnClickListener {
+            onShopItemClickListener?.invoke(getItem(viewHolder.adapterPosition))
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(viewHolder: ShopItemViewHolder, position: Int) {
         val shopItem = getItem(position)
-        viewHolder.view.setOnLongClickListener {
-            onShopItemLongClickListener?.invoke(shopItem)
-            true
-        }
-        viewHolder.view.setOnClickListener {
-            onShopItemClickListener?.invoke(shopItem)
-        }
         viewHolder.tvName.text = shopItem.name
         viewHolder.tvCount.text = shopItem.count.toString()
     }
